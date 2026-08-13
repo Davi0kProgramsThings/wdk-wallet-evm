@@ -28,7 +28,7 @@ import { populateTransactionEvm } from './utils/tx-populator-evm.js'
 /** @typedef {import('ethers').Authorization} Authorization */
 /** @typedef {import('ethers').AuthorizationLike} AuthorizationLike */
 
-/** @typedef {import('@tetherto/wdk-wallet').IWalletAccount} IWalletAccount */
+/** @typedef {import('@tetherto/wdk-wallet').IWalletAccount<TSignedTransaction>} IWalletAccount<TSignedTransaction> */
 
 /** @typedef {import('@tetherto/wdk-wallet').KeyPair} KeyPair */
 /** @typedef {import('@tetherto/wdk-wallet').TransactionResult} TransactionResult */
@@ -139,9 +139,8 @@ export default class WalletAccountEvm extends WalletAccountReadOnlyEvm {
    * @returns {Promise<string>} The account's address.
    */
   async getAddress () {
-    if (this._address) return this._address
     const addr = await this._signer.getAddress()
-    this.__address = addr
+
     return addr
   }
 

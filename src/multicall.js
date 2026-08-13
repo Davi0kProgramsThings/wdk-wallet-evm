@@ -16,7 +16,10 @@
 
 import { AbiCoder, concat, decodeBase64, hexlify } from 'ethers'
 
-/** @typedef {import('ethers').Provider} Provider */
+/**
+ * @internal
+ * @typedef {import('ethers').Provider} Provider
+ */
 
 /**
  * @internal

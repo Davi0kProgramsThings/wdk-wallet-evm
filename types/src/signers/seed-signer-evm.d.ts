@@ -1,52 +1,11 @@
-import { ISigner } from "@tetherto/wdk-wallet";
-/** @typedef {import('../wallet-account-read-only-evm.js').TypedData} TypedData */
-/** @typedef {import('@tetherto/wdk-wallet').KeyPair} KeyPair */
-/** @typedef {import('ethers').AuthorizationRequest} AuthorizationRequest */
-/** @typedef {import('ethers').Authorization} Authorization */
-/** @typedef {import('ethers').AuthorizationLike} AuthorizationLike */
-/**
- * A fully-populated unsigned EVM transaction suitable for signing.
- * Produced by the internal transaction populator and consumed by signer implementations.
- */
-export type UnsignedEvmTransaction = {
-    chainId: number;
-    nonce: number;
-    from: string;
-    to: string | null;
-    data: string;
-    value: number | bigint;
-    type: number;
-    gasLimit: number | bigint;
-    gasPrice?: number | bigint;
-    maxFeePerGas?: number | bigint;
-    maxPriorityFeePerGas?: number | bigint;
-    accessList?: any[];
-    maxFeePerBlobGas?: number | bigint;
-    blobs?: any[];
-    blobVersionedHashes?: string[];
-    authorizationList?: AuthorizationLike[];
-};
-export type SeedSignerEvmOpts = {
-    /**
-     * An existing HD node wallet root to derive from (internal; set by {@link SeedSignerEvm#derive}).
-     */
-    root?: object;
-    /**
-     * Relative BIP-44 path segment (e.g. "0'/0/0"). Defaults to the account at index 0.
-     */
-    path?: string;
-    /**
-     * Internal. When true, the signer is a derived child and does not retain the root (set by {@link SeedSignerEvm#derive}).
-     */
-    isChild?: boolean;
-};
+// This file has been automatically generated with jsdoc-to-d-ts
 /**
  * Interface for EVM signers, extending the base `ISigner` from `@tetherto/wdk-wallet`.
  *
  * @extends {ISigner}
  * @interface
  */
-export class ISignerEvm extends ISigner {
+export interface ISignerEvm extends ISigner {
     /**
      * Whether this signer can derive child signers (i.e. it holds an HD root). Non-derivable
      * signers (e.g. private-key signers) are bound directly to an account; derivable signers
@@ -58,17 +17,17 @@ export class ISignerEvm extends ISigner {
      * The last component index for the derivation path of this signer, when applicable.
      * @type {number|undefined}
      */
-    get index(): number | undefined;
+    get index(): number|undefined;
     /**
      * The full derivation path if this is a child signer.
      * @type {string|undefined}
      */
-    get path(): string | undefined;
+    get path(): string|undefined;
     /**
      * The account's address, if available.
      * @type {string|undefined}
      */
-    get address(): string | undefined;
+    get address(): string|undefined;
     /**
      * The account's key pair.
      * @type {KeyPair}
@@ -113,37 +72,50 @@ export class ISignerEvm extends ISigner {
      */
     signAuthorization(auth: AuthorizationRequest): Promise<Authorization>;
     /** Clear any secret material from memory. */
-    dispose(): void;
+    dispose(): any;
 }
 /**
- * @extends {ISignerEvm}
+ * @implements {ISignerEvm}
  * Signer implementation that derives keys from a BIP-39 seed using the BIP-44 Ethereum path.
  * Always holds a derived account (index 0 by default). A root signer also retains the HD root
  * and can derive child signers; a derived child holds only its own account.
  */
-export default class SeedSignerEvm extends ISignerEvm {
+export default class SeedSignerEvm implements ISignerEvm {
     /**
      * Create a SeedSignerEvm.
-     * Provide a mnemonic/seed (children built via {@link derive} pass a shared root internally).
+     * Provide either a mnemonic/seed or an existing root via opts.root (for children root is not stored internally)
      *
      * @param {string|Uint8Array|null} seed - BIP-39 mnemonic or seed bytes. Omit when providing `opts.root`.
      * @param {SeedSignerEvmOpts} [opts] - Construction options for root reuse, direct child derivation or path definition (default is index 0).
-     * @throws {Error} If neither a seed nor a root is provided, or if both are provided.
-     * @throws {Error} If a seed is provided but is not a valid BIP-39 mnemonic.
+       * @throws {Error} If neither a seed nor a root is provided, or if both are provided.
+       * @throws {Error} If a seed is provided but is not a valid BIP-39 mnemonic.
      */
-    constructor(seed: string | Uint8Array | null, opts?: SeedSignerEvmOpts);
-    /** @private */
-    private _account;
-    /** @private */
-    private _address;
-    /** @private */
-    private _path;
-    /** @private */
-    private _root;
+    constructor(seed: string|Uint8Array|null, opts?: SeedSignerEvmOpts);
+    /**
+     * Whether this signer can derive child signers. True for a root signer (which holds the
+     * HD root); false for a derived child, which does not retain the root.
+     * @type {boolean}
+     */
     get isDerivable(): boolean;
-    get index(): number | undefined;
-    get path(): string | undefined;
+    /**
+     * The last component index of the derivation path, if available.
+     * @type {number|undefined}
+     */
+    get index(): number|undefined;
+    /**
+     * The full derivation path of this signer's account.
+     * @type {string|undefined}
+     */
+    get path(): string|undefined;
+    /**
+     * The account's derived address.
+     * @type {string}
+     */
     get address(): string;
+    /**
+     * The account's key pair (private and public key buffers).
+     * @type {KeyPair}
+     */
     get keyPair(): KeyPair;
     /**
      * Derive a child signer using the provided relative path (e.g. "0'/0/0").
@@ -152,6 +124,11 @@ export default class SeedSignerEvm extends ISignerEvm {
      * @throws {Error} If called on a derived child signer, which does not retain the root.
      */
     derive(relPath: string): Promise<SeedSignerEvm>;
+    /**
+     * Returns the account's derived address.
+     * @returns {Promise<string>}
+     */
+    getAddress(): Promise<string>;
     /**
      * Sign a plain message string.
      * @param {string} message
@@ -178,10 +155,27 @@ export default class SeedSignerEvm extends ISignerEvm {
      */
     signAuthorization(auth: AuthorizationRequest): Promise<Authorization>;
     /** Disposes secrets from memory. */
-    dispose(): void;
+    dispose(): any;
 }
-export type TypedData = import("../wallet-account-read-only-evm.js").TypedData;
-export type KeyPair = import("@tetherto/wdk-wallet").KeyPair;
-export type AuthorizationRequest = import("ethers").AuthorizationRequest;
-export type Authorization = import("ethers").Authorization;
-export type AuthorizationLike = import("ethers").AuthorizationLike;
+export type UnsignedEvmTransaction = import('../utils/tx-populator-evm.js').UnsignedEvmTransaction;
+export type SignerError = import('@tetherto/wdk-wallet').SignerError;
+export type KeyPair = import('@tetherto/wdk-wallet').KeyPair;
+export type AuthorizationRequest = import('ethers').AuthorizationRequest;
+export type Authorization = import('ethers').Authorization;
+export type HDNodeWallet = import('ethers').HDNodeWallet;
+export type TypedData = import('../wallet-account-read-only-evm.js').TypedData;
+export type SeedSignerEvmOpts = {
+    /*
+     * An existing HD node wallet root to derive from.
+     */
+    root?: HDNodeWallet;
+    /*
+     * Relative BIP-44 path segment (e.g. "0'/0/0"). Defaults to the account at index 0.
+     */
+    path?: string;
+    /*
+     * When true, the signer is a derived child and does not retain the root.
+     */
+    isChild?: boolean;
+};
+import { ISigner } from '@tetherto/wdk-wallet';

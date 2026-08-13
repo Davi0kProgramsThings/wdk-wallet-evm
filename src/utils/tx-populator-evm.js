@@ -15,7 +15,11 @@
 
 import { Signature, toQuantity } from 'ethers'
 
-/** @typedef {import('ethers').Provider} Provider */
+/**
+ * @internal
+ * @typedef {import('ethers').Provider} Provider
+ */
+
 /** @typedef {import('ethers').AuthorizationLike} AuthorizationLike */
 
 /**
@@ -47,6 +51,7 @@ import { Signature, toQuantity } from 'ethers'
  * explicitly supplied in `tx`. Supports legacy (type 0/1), EIP-1559 (type 2),
  * EIP-4844 (type 3) and EIP-7702 (type 4) transaction styles.
  *
+ * @internal
  * @param {Provider} provider - An ethers-compatible JSON-RPC provider.
  * @param {string} from - The sender address.
  * @param {UnsignedEvmTransaction} tx - The partial transaction to populate.

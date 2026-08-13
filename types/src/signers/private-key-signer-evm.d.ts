@@ -1,35 +1,38 @@
-import { ISignerEvm } from "./seed-signer-evm.js";
-/** @typedef {import('./seed-signer-evm.js').UnsignedEvmTransaction} UnsignedEvmTransaction */
-/** @typedef {import('../wallet-account-read-only-evm.js').TypedData} TypedData */
-/** @typedef {import('@tetherto/wdk-wallet').KeyPair} KeyPair */
-/** @typedef {import('ethers').AuthorizationRequest} AuthorizationRequest */
-/** @typedef {import('ethers').Authorization} Authorization */
+// This file has been automatically generated with jsdoc-to-d-ts
 /**
- * @extends {ISignerEvm}
+ * @implements {ISignerEvm}
  * Signer that wraps a raw private key in a memory-safe buffer, exposing a minimal
  * interface for signing messages, transactions and typed data. This signer does
  * not support derivation and always represents a single account.
  */
-export default class PrivateKeySignerEvm extends ISignerEvm {
+export default class PrivateKeySignerEvm implements ISignerEvm {
     /**
+     * Create a signer from a raw private key.
+     *
      * @param {string|Uint8Array} privateKey - Hex string (with/without 0x) or raw key bytes.
      */
-    constructor(privateKey: string | Uint8Array);
-    /** @private */
-    private _signingKey;
-    /** @private */
-    private _wallet;
-    /** @private */
-    private _address;
-    /** @private */
-    private _path;
-    /** @type {boolean} */
+    constructor(privateKey: string|Uint8Array);
+    /**
+     * Whether this signer can derive child signers. Always false: a private-key signer is a
+     * single standalone account and is bound directly to a wallet account.
+     * @type {boolean}
+     */
     get isDerivable(): boolean;
-    /** @type {number|undefined} */
-    get index(): number | undefined;
-    /** @type {string|undefined} */
-    get path(): string | undefined;
-    /** @type {string} */
+    /**
+     * The account index. Always undefined for private key signers: a raw key has no
+     * BIP-44 position, so reporting an index would be misleading.
+     * @type {number|undefined}
+     */
+    get index(): number|undefined;
+    /**
+     * The derivation path. Always undefined for private key signers.
+     * @type {string|undefined}
+     */
+    get path(): string|undefined;
+    /**
+     * The account's address.
+     * @type {string}
+     */
     get address(): string;
     /**
      * The account's key pair (private and public key buffers).
@@ -72,10 +75,11 @@ export default class PrivateKeySignerEvm extends ISignerEvm {
      */
     signAuthorization(auth: AuthorizationRequest): Promise<Authorization>;
     /** Dispose secrets from memory. */
-    dispose(): void;
+    dispose(): any;
 }
-export type UnsignedEvmTransaction = import("./seed-signer-evm.js").UnsignedEvmTransaction;
-export type TypedData = import("../wallet-account-read-only-evm.js").TypedData;
-export type KeyPair = import("@tetherto/wdk-wallet").KeyPair;
-export type AuthorizationRequest = import("ethers").AuthorizationRequest;
-export type Authorization = import("ethers").Authorization;
+export type UnsignedEvmTransaction = import('../utils/tx-populator-evm.js').UnsignedEvmTransaction;
+export type KeyPair = import('@tetherto/wdk-wallet').KeyPair;
+export type AuthorizationRequest = import('ethers').AuthorizationRequest;
+export type Authorization = import('ethers').Authorization;
+export type TypedData = import('../wallet-account-read-only-evm.js').TypedData;
+import { ISignerEvm } from './seed-signer-evm.js';

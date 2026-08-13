@@ -1,26 +1,12 @@
+// This file has been automatically generated with jsdoc-to-d-ts
 export default class WalletAccountReadOnlyEvm extends WalletAccountReadOnly {
-    /**
-     * Returns an evm transaction to execute the given token transfer.
-     *
-     * @protected
-     * @param {EvmTransferOptions} options - The transfer's options.
-     * @returns {Promise<EvmTransaction>} The evm transaction.
-     */
-    protected static _getTransferTransaction(options: EvmTransferOptions): Promise<EvmTransaction>;
-    /**
-     * Creates a new evm read-only wallet account.
-     *
-     * @param {string} address - The account's address.
-     * @param {Omit<EvmWalletConfig, 'transferMaxFee' | 'transactionMaxFee'>} [config] - The configuration object.
-     */
-    constructor(address: string, config?: Omit<EvmWalletConfig, "transferMaxFee" | "transactionMaxFee">);
     /**
      * The read-only wallet account configuration.
      *
      * @protected
      * @type {Omit<EvmWalletConfig, 'transferMaxFee' | 'transactionMaxFee'>}
      */
-    protected _config: Omit<EvmWalletConfig, "transferMaxFee" | "transactionMaxFee">;
+    protected _config: Omit<EvmWalletConfig, 'transferMaxFee' | 'transactionMaxFee'>;
     /**
      * An ethers provider to interact with a node of the blockchain.
      *
@@ -28,6 +14,13 @@ export default class WalletAccountReadOnlyEvm extends WalletAccountReadOnly {
      * @type {Provider | undefined}
      */
     protected _provider: Provider | undefined;
+    /**
+     * Creates a new evm read-only wallet account.
+     *
+     * @param {string} address - The account's address.
+     * @param {Omit<EvmWalletConfig, 'transferMaxFee' | 'transactionMaxFee'>} [config] - The configuration object.
+     */
+    constructor(address: string, config?: Omit<EvmWalletConfig, 'transferMaxFee' | 'transactionMaxFee'>);
     /**
      * The account's address.
      *
@@ -60,14 +53,14 @@ export default class WalletAccountReadOnlyEvm extends WalletAccountReadOnly {
      * @param {EvmTransaction} tx - The transaction.
      * @returns {Promise<Omit<TransactionResult, 'hash'>>} The transaction's quotes.
      */
-    quoteSendTransaction(tx: EvmTransaction): Promise<Omit<TransactionResult, "hash">>;
+    quoteSendTransaction(tx: EvmTransaction): Promise<Omit<TransactionResult, 'hash'>>;
     /**
      * Quotes the costs of a transfer operation.
      *
      * @param {EvmTransferOptions} options - The transfer's options.
      * @returns {Promise<Omit<TransferResult, 'hash'>>} The transfer's quotes.
      */
-    quoteTransfer(options: EvmTransferOptions): Promise<Omit<TransferResult, "hash">>;
+    quoteTransfer(options: EvmTransferOptions): Promise<Omit<TransferResult, 'hash'>>;
     /**
      * Returns a transaction's receipt.
      *
@@ -104,124 +97,130 @@ export default class WalletAccountReadOnlyEvm extends WalletAccountReadOnly {
      * @returns {Promise<DelegationInfo>} The delegation info.
      */
     getDelegation(): Promise<DelegationInfo>;
-    /** @private */
-    private _estimateGasWithAuthList;
-}
-export type Provider = import("ethers").Provider;
-export type Eip1193Provider = import("ethers").Eip1193Provider;
-export type TypedDataDomain = import("ethers").TypedDataDomain;
-export type TypedDataField = import("ethers").TypedDataField;
-export type AuthorizationLike = import("ethers").AuthorizationLike;
-export type EvmTransactionReceipt = import("ethers").TransactionReceipt;
-export type TransactionResult = import("@tetherto/wdk-wallet").TransactionResult;
-export type TransferResult = import("@tetherto/wdk-wallet").TransferResult;
-export type TypedData = {
     /**
-     * - The domain separator.
+     * Returns an evm transaction to execute the given token transfer.
+     *
+     * @protected
+     * @param {EvmTransferOptions} options - The transfer's options.
+     * @returns {Promise<EvmTransaction>} The evm transaction.
+     */
+    protected static _getTransferTransaction(options: EvmTransferOptions): Promise<EvmTransaction>;
+}
+export type Provider = import('ethers').Provider;
+export type Eip1193Provider = import('ethers').Eip1193Provider;
+export type TypedDataDomain = import('ethers').TypedDataDomain;
+export type TypedDataField = import('ethers').TypedDataField;
+export type AuthorizationLike = import('ethers').AuthorizationLike;
+export type EvmTransactionReceipt = import('ethers').TransactionReceipt;
+export type TransactionResult = import('@tetherto/wdk-wallet').TransactionResult;
+export type TransferResult = import('@tetherto/wdk-wallet').TransferResult;
+export type TypedData = {
+    /*
+     * The domain separator.
      */
     domain: TypedDataDomain;
-    /**
-     * - The type definitions.
+    /*
+     * The type definitions.
      */
     types: Record<string, TypedDataField[]>;
-    /**
-     * - The message data.
+    /*
+     * The message data.
      */
     message: Record<string, unknown>;
 };
 export type DelegationInfo = {
-    /**
-     * - Whether the account has an active ERC-7702 delegation.
+    /*
+     * Whether the account has an active ERC-7702 delegation.
      */
     isDelegated: boolean;
-    /**
-     * - The address of the delegate contract, or null if not delegated.
+    /*
+     * The address of the delegate contract, or null if not delegated.
      */
     delegateAddress: string | null;
 };
 export type EvmTransaction = {
-    /**
-     * - The transaction's recipient. Omit or pass null to deploy a contract.
+    /*
+     * The transaction's recipient. Omit or pass null to deploy a contract.
      */
     to?: string | null;
-    /**
-     * - The amount of ethers to send to the recipient (in weis).
+    /*
+     * The amount of ethers to send to the recipient (in weis).
      */
     value: number | bigint;
-    /**
-     * - The transaction's data in hex format.
+    /*
+     * The transaction's data in hex format.
      */
     data?: string;
-    /**
-     * - The maximum amount of gas this transaction is permitted to use.
+    /*
+     * The maximum amount of gas this transaction is permitted to use.
      */
     gasLimit?: number | bigint;
-    /**
-     * - The price (in wei) per unit of gas this transaction will pay.
+    /*
+     * The price (in wei) per unit of gas this transaction will pay.
      */
     gasPrice?: number | bigint;
-    /**
-     * - The maximum price (in wei) per unit of gas this transaction will pay for the combined [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) block's base fee and this transaction's priority fee.
+    /*
+     * The maximum price (in wei) per unit of gas this transaction will pay for the combined [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) block's base fee and this transaction's priority fee.
      */
     maxFeePerGas?: number | bigint;
-    /**
-     * - The price (in wei) per unit of gas this transaction will allow in addition to the [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) block's base fee to bribe miners into giving this transaction priority. This is included in the maxFeePerGas, so this will not affect the total maximum cost set with maxFeePerGas.
+    /*
+     * The price (in wei) per unit of gas this transaction will allow in addition to the [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) block's base fee to bribe miners into giving this transaction priority. This is included in the maxFeePerGas, so this will not affect the total maximum cost set with maxFeePerGas.
      */
     maxPriorityFeePerGas?: number | bigint;
-    /**
-     * - The transaction type (e.g. 4 for ERC-7702).
+    /*
+     * The transaction type (e.g. 4 for ERC-7702).
      */
     type?: number;
-    /**
-     * - The transaction nonce.
+    /*
+     * The transaction nonce.
      */
     nonce?: number;
-    /**
-     * - The chain ID of the network.
+    /*
+     * The chain ID of the network.
      */
     chainId?: number | bigint;
-    /**
-     * - An optional list of ERC-7702 signed authorizations for type 4 transactions.
+    /*
+     * An optional list of ERC-7702 signed authorizations for type 4 transactions.
      */
     authorizationList?: AuthorizationLike[];
 };
 export type EvmTransferOptions = {
-    /**
-     * - The address of the token to transfer.
+    /*
+     * The address of the token to transfer.
      */
     token: string;
-    /**
-     * - The address of the recipient.
+    /*
+     * The address of the recipient.
      */
     recipient: string;
-    /**
-     * - The amount of tokens to transfer to the recipient (in base units).
+    /*
+     * The amount of tokens to transfer to the recipient (in base units).
      */
     amount: number | bigint;
-    /**
-     * - An optional list of ERC-7702 signed authorizations.
+    /*
+     * An optional list of ERC-7702 signed authorizations.
      */
     authorizationList?: AuthorizationLike[];
 };
 export type EvmWalletConfig = {
-    /**
-     * - The url of the rpc provider, or an instance of a class that implements eip-1193. It's also possible to provide an array of urls or EIP 1193 providers instead. In such case, connection errors will cause the wallet to automatically fallback on the next provider in the list. 
+    /*
+     * The url of the rpc provider, or an instance of a class that implements eip-1193. It's also possible to provide an array of urls or EIP 1193 providers instead. In such case, connection errors will cause the wallet to automatically fallback on the next provider in the list.
      */
     provider?: string | Eip1193Provider | Array<string | Eip1193Provider>;
-    /**
-     * - If set and if 'provider' is a list of urls or EIP 1193 providers, the number of additional retry attempts after the initial call fails. Total attempts = `1 + retries`. For example, `retries: 3` with 4 providers will try each provider once before throwing. If `retries` exceeds the number of providers, the failover will loop back and retry already-failed providers in round-robin order. Default: 3. 
+    /*
+     * If set and if 'provider' is a list of urls or EIP 1193 providers, the number of additional retry attempts after the initial call fails. Total attempts = `1 + retries`. For example, `retries: 3` with 4 providers will try each provider once before throwing. If `retries` exceeds the number of providers, the failover will loop back and retry already-failed providers in round-robin order. Default: 3.
      */
     retries?: number;
-    /**
-     * - The chain ID of the network. When provided, skips automatic chain ID detection from the provider.
+    /*
+     * The chain ID of the network. When provided, skips automatic chain ID detection from the provider.
      */
     chainId?: number;
-    /**
-     * - The maximum fee amount for transfer operations.
+    /*
+     * The maximum fee amount for transfer operations.
      */
     transferMaxFee?: number | bigint;
-    /**
-     * - The maximum fee amount for sendTransaction and signTransaction operations.
+    /*
+     * The maximum fee amount for sendTransaction and signTransaction operations.
      */
     transactionMaxFee?: number | bigint;
 };

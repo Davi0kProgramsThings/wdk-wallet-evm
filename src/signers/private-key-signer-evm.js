@@ -27,12 +27,12 @@ import { ISignerEvm } from './seed-signer-evm.js'
 /** @typedef {import('../wallet-account-read-only-evm.js').TypedData} TypedData */
 
 /**
- * @extends {ISignerEvm}
+ * @implements {ISignerEvm}
  * Signer that wraps a raw private key in a memory-safe buffer, exposing a minimal
  * interface for signing messages, transactions and typed data. This signer does
  * not support derivation and always represents a single account.
  */
-export default class PrivateKeySignerEvm extends ISignerEvm {
+export default class PrivateKeySignerEvm {
   /**
    * Create a signer from a raw private key.
    *

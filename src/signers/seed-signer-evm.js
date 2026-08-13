@@ -24,17 +24,16 @@ const BIP_44_ETH_DERIVATION_PATH_PREFIX = "m/44'/60'"
 const DEFAULT_ACCOUNT_PATH = "0'/0/0"
 
 /** @typedef {import('../utils/tx-populator-evm.js').UnsignedEvmTransaction} UnsignedEvmTransaction */
-/** @typedef {import('@tetherto/wdk-wallet').ISigner} ISigner */
 /** @typedef {import('@tetherto/wdk-wallet').SignerError} SignerError */
 /** @typedef {import('@tetherto/wdk-wallet').KeyPair} KeyPair */
 /** @typedef {import('ethers').AuthorizationRequest} AuthorizationRequest */
 /** @typedef {import('ethers').Authorization} Authorization */
+/** @typedef {import('ethers').HDNodeWallet} HDNodeWallet */
 /** @typedef {import('../wallet-account-read-only-evm.js').TypedData} TypedData */
-/** @typedef {import('../memory-safe/hd-node-wallet.js').default} MemorySafeHDNodeWallet */
 
 /**
  * @typedef {Object} SeedSignerEvmOpts
- * @property {MemorySafeHDNodeWallet} [root] - An existing HD node wallet root to derive from.
+ * @property {HDNodeWallet} [root] - An existing HD node wallet root to derive from.
  * @property {string} [path] - Relative BIP-44 path segment (e.g. "0'/0/0"). Defaults to the account at index 0.
  * @property {boolean} [isChild] - When true, the signer is a derived child and does not retain the root.
  */
@@ -151,12 +150,12 @@ export class ISignerEvm extends ISigner {
 }
 
 /**
- * @extends {ISignerEvm}
+ * @implements {ISignerEvm}
  * Signer implementation that derives keys from a BIP-39 seed using the BIP-44 Ethereum path.
  * Always holds a derived account (index 0 by default). A root signer also retains the HD root
  * and can derive child signers; a derived child holds only its own account.
  */
-export default class SeedSignerEvm extends ISignerEvm {
+export default class SeedSignerEvm {
   /**
    * Create a SeedSignerEvm.
    * Provide either a mnemonic/seed or an existing root via opts.root (for children root is not stored internally)

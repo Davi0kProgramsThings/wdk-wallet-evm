@@ -1,29 +1,6 @@
+// This file has been automatically generated with jsdoc-to-d-ts
 /** @implements {IWalletAccount<string>} */
 export default class WalletAccountEvm extends WalletAccountReadOnlyEvm implements IWalletAccount<string> {
-    /**
-     * Creates a new evm wallet account from a raw private key.
-     *
-     * @param {string | Uint8Array} privateKey - The raw private key (hex string with or without 0x, or 32 bytes).
-     * @param {EvmWalletConfig} [config] - The configuration object.
-     * @returns {WalletAccountEvm} The wallet account.
-     */
-    static fromPrivateKey(privateKey: string | Uint8Array, config?: EvmWalletConfig): WalletAccountEvm;
-    /**
-     * Creates a new evm wallet account from a BIP-39 seed, deriving the account's key at the
-     * given BIP-44 path.
-     *
-     * @param {string | Uint8Array} seed - The wallet's BIP-39 seed phrase or seed bytes.
-     * @param {string} path - The BIP-44 derivation path (e.g. "0'/0/0").
-     * @param {EvmWalletConfig} [config] - The configuration object.
-     */
-    constructor(seed: string | Uint8Array, path: string, config?: EvmWalletConfig);
-    /**
-     * Creates a new evm wallet account using a signer.
-     *
-     * @param {ISignerEvm} signer - A signer implementing the EVM signer interface.
-     * @param {EvmWalletConfig} [config] - The configuration object.
-     */
-    constructor(signer: ISignerEvm, config?: EvmWalletConfig);
     /**
      * The wallet account configuration.
      *
@@ -31,8 +8,25 @@ export default class WalletAccountEvm extends WalletAccountReadOnlyEvm implement
      * @type {EvmWalletConfig}
      */
     protected _config: EvmWalletConfig;
-    /** @private */
-    private _signer;
+    _evmReadOnlyAccount: any;
+    /**
+     * Creates a new evm wallet account from a BIP-39 seed, deriving the account's key at the
+     * given BIP-44 path.
+     *
+     * @overload
+     * @param {string | Uint8Array} seed - The wallet's BIP-39 seed phrase or seed bytes.
+     * @param {string} path - The BIP-44 derivation path (e.g. "0'/0/0").
+     * @param {EvmWalletConfig} [config] - The configuration object.
+     */
+    constructor(seedOrSigner: string | Uint8Array, pathOrConfig: string, config?: EvmWalletConfig);
+    /**
+     * Creates a new evm wallet account using a signer.
+     *
+     * @overload
+     * @param {ISignerEvm} signer - A signer implementing the EVM signer interface.
+     * @param {EvmWalletConfig} [config] - The configuration object.
+     */
+    constructor(seedOrSigner: ISignerEvm, pathOrConfig?: EvmWalletConfig);
     /**
      * The derivation path's index of this account.
      *
@@ -55,6 +49,14 @@ export default class WalletAccountEvm extends WalletAccountReadOnlyEvm implement
      * @type {KeyPair}
      */
     get keyPair(): KeyPair;
+    /**
+     * Creates a new evm wallet account from a raw private key.
+     *
+     * @param {string | Uint8Array} privateKey - The raw private key (hex string with or without 0x, or 32 bytes).
+     * @param {EvmWalletConfig} [config] - The configuration object.
+     * @returns {WalletAccountEvm} The wallet account.
+     */
+    static fromPrivateKey(privateKey: string | Uint8Array, config?: EvmWalletConfig): WalletAccountEvm;
     /**
      * Returns the account's address. If it wasn't resolved at construction time (e.g hardware signers), it asks the
      * underlying signer to resolve it, then caches it locally.
@@ -100,7 +102,7 @@ export default class WalletAccountEvm extends WalletAccountReadOnlyEvm implement
      * @param {EvmTransaction | string} tx - The transaction.
      * @returns {Promise<Omit<TransactionResult, 'hash'>>} The transaction's quotes.
      */
-    quoteSendTransaction(tx: EvmTransaction | string): Promise<Omit<TransactionResult, "hash">>;
+    quoteSendTransaction(tx: EvmTransaction | string): Promise<Omit<TransactionResult, 'hash'>>;
     /**
      * Transfers a token to another address.
      *
@@ -150,32 +152,32 @@ export default class WalletAccountEvm extends WalletAccountReadOnlyEvm implement
     /**
      * Disposes the wallet account, erasing the private key from the memory.
      */
-    dispose(): void;
+    dispose(): any;
 }
-export type ISignerEvm = import("./signers/seed-signer-evm.js").ISignerEvm;
-export type HDNodeWallet = import("ethers").HDNodeWallet;
-export type AuthorizationRequest = import("ethers").AuthorizationRequest;
-export type Authorization = import("ethers").Authorization;
-export type AuthorizationLike = import("ethers").AuthorizationLike;
-export type IWalletAccount<TSignedTransaction> = import("@tetherto/wdk-wallet").IWalletAccount<TSignedTransaction>;
-export type KeyPair = import("@tetherto/wdk-wallet").KeyPair;
-export type TransactionResult = import("@tetherto/wdk-wallet").TransactionResult;
-export type TransferResult = import("@tetherto/wdk-wallet").TransferResult;
-export type TypedData = import("./wallet-account-read-only-evm.js").TypedData;
-export type EvmTransaction = import("./wallet-account-read-only-evm.js").EvmTransaction;
-export type EvmTransferOptions = import("./wallet-account-read-only-evm.js").EvmTransferOptions;
-export type EvmWalletConfig = import("./wallet-account-read-only-evm.js").EvmWalletConfig;
+export type ISignerEvm = import('./signers/seed-signer-evm.js').ISignerEvm;
+export type HDNodeWallet = import('ethers').HDNodeWallet;
+export type AuthorizationRequest = import('ethers').AuthorizationRequest;
+export type Authorization = import('ethers').Authorization;
+export type AuthorizationLike = import('ethers').AuthorizationLike;
+export type IWalletAccount<TSignedTransaction> = import('@tetherto/wdk-wallet').IWalletAccount<TSignedTransaction>;
+export type KeyPair = import('@tetherto/wdk-wallet').KeyPair;
+export type TransactionResult = import('@tetherto/wdk-wallet').TransactionResult;
+export type TransferResult = import('@tetherto/wdk-wallet').TransferResult;
+export type TypedData = import('./wallet-account-read-only-evm.js').TypedData;
+export type EvmTransaction = import('./wallet-account-read-only-evm.js').EvmTransaction;
+export type EvmTransferOptions = import('./wallet-account-read-only-evm.js').EvmTransferOptions;
+export type EvmWalletConfig = import('./wallet-account-read-only-evm.js').EvmWalletConfig;
 export type ApproveOptions = {
-    /**
-     * - The address of the token to approve.
+    /*
+     * The address of the token to approve.
      */
     token: string;
-    /**
-     * - The spender's address.
+    /*
+     * The spender's address.
      */
     spender: string;
-    /**
-     * - The amount of tokens to approve to the spender.
+    /*
+     * The amount of tokens to approve to the spender.
      */
     amount: number | bigint;
 };
